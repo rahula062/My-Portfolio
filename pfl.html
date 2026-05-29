@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rahul Kumar | rahulkumar.dev</title>
+    <meta name="description" content="Rahul Kumar - CSE Student & Web Developer">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #05070f;
+            --surface: #0f1426;
+            --accent: #00f5ff;
+            --text: #e0f0ff;
+            --text-muted: #94a3c0;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+
+        /* MATRIX RAIN */
+        #matrix {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.16;
+            pointer-events: none;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            background: rgba(5, 7, 15, 0.92);
+            border-bottom: 1px solid rgba(0, 245, 255, 0.25);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.7rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00f5ff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after { width: 100%; }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: clamp(3.2rem, 8vw, 6.2rem);
+            line-height: 1.05;
+            letter-spacing: -3px;
+        }
+        
+        .highlight {
+            background: linear-gradient(90deg, #00f5ff, #67e8f9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            font-size: 1.55rem;
+            color: var(--text-muted);
+            margin: 1.2rem 0 2.8rem;
+        }
+
+        .btn {
+            padding: 14px 34px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.4s;
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: #05070f;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 245, 255, 0.45);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--accent);
+        }
+
+        .avatar {
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 8px solid rgba(0, 245, 255, 0.5);
+            box-shadow: 0 0 80px rgba(0, 245, 255, 0.6);
+            margin-bottom: 2rem;
+        }
+
+        section { padding: 120px 0; position: relative; z-index: 2; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+        .section-header h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 3px;
+            background: var(--accent);
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+        }
+        
+        .skill-card {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 245, 255, 0.15);
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-card {
+            background: var(--surface);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 245, 255, 0.15);
+            transition: all 0.5s;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 30px 60px rgba(0, 245, 255, 0.3);
+        }
+
+        /* Timeline */
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: rgba(0, 245, 255, 0.2);
+        }
+
+        .contact-form {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--surface);
+            padding: 3rem;
+            border-radius: 28px;
+        }
+
+        input, textarea {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(0, 245, 255, 0.2);
+            padding: 16px 20px;
+            border-radius: 12px;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- MATRIX RAIN -->
+    <canvas id="matrix"></canvas>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Rahul Kumar</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <img src="https://i.imgur.com/placeholder.jpg" alt="Rahul Kumar" class="avatar" id="profile-pic">
+            <h1>Hi, I'm <span class="highlight">Rahul Kumar</span></h1>
+            <p class="tagline">CSE Student | Web Developer | Problem Solver</p>
+            
+            <div style="display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap;">
+                <a href="#projects" class="btn btn-primary">
+                    <i class="fas fa-rocket"></i> View Projects
+                </a>
+                <a href="#" onclick="downloadResume()" class="btn btn-secondary">
+                    <i class="fas fa-download"></i> Download Resume
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header"><h2>About Me</h2></div>
+            <div style="display:grid; grid-template-columns:1fr 1.1fr; gap:5rem; align-items:center;">
+                <div>
+                    <h2 style="font-size:2.5rem; margin-bottom:1.5rem;">Building the future, one line of code at a time.</h2>
+                    <p style="font-size:1.2rem; color:var(--text-muted);">
+                        Passionate 2nd year Diploma student in Computer Science Engineering at Government Polytechnic Gaya, Bihar.
+                        Currently exploring web development, C programming, and building practical tech solutions.
+                    </p>
+                </div>
+                <div>
+                    <div style="color:var(--accent); font-size:3rem; font-weight:700;">2nd Year • 3rd Semester</div>
+                    <div style="color:var(--accent); font-size:3rem; font-weight:700; margin-top:1rem;">SGPA: 7.73</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" style="background:#0a0e1f;">
+        <div class="container">
+            <div class="section-header"><h2>Skills</h2></div>
+            <div class="skills-grid">
+                <div class="skill-card"><div style="margin-bottom:1rem;">C Programming</div><div style="height:8px;background:rgba(0,245,255,0.2);border-radius:10px;"><div style="width:85%;height:100%;background:var(--accent);border-radius:10px;"></div></div></div>
+                <div class="skill-card"><div style="margin-bottom:1rem;">HTML5 + CSS3</div><div style="height:8px;background:rgba(0,245,255,0.2);border-radius:10px;"><div style="width:92%;height:100%;background:var(--accent);border-radius:10px;"></div></div></div>
+                <div class="skill-card"><div style="margin-bottom:1rem;">JavaScript</div><div style="height:8px;background:rgba(0,245,255,0.2);border-radius:10px;"><div style="width:82%;height:100%;background:var(--accent);border-radius:10px;"></div></div></div>
+                <div class="skill-card"><div style="margin-bottom:1rem;">Python (Basics)</div><div style="height:8px;background:rgba(0,245,255,0.2);border-radius:10px;"><div style="width:70%;height:100%;background:var(--accent);border-radius:10px;"></div></div></div>
+                <div class="skill-card"><div style="margin-bottom:1rem;">Git & GitHub</div><div style="height:8px;background:rgba(0,245,255,0.2);border-radius:10px;"><div style="width:78%;height:100%;background:var(--accent);border-radius:10px;"></div></div></div>
+                <div class="skill-card"><div style="margin-bottom:1rem;">Canvas API</div><div style="height:8px;background:rgba(0,245,255,0.2);border-radius:10px;"><div style="width:75%;height:100%;background:var(--accent);border-radius:10px;"></div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+        <div class="container">
+            <div class="section-header"><h2>Featured Projects</h2></div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div style="height:220px;background:linear-gradient(135deg,#1e3a8a,#0f172a);display:flex;align-items:center;justify-content:center;font-size:4rem;">🖼️</div>
+                    <div style="padding:1.8rem;">
+                        <h3>PixelCraft — Photo Resizer</h3>
+                        <p>Drag & drop image resizer with live preview and download using Canvas API.</p>
+                        <a href="https://rahula062.github.io/My-ImgResizer/" target="_blank" style="color:var(--accent);margin-top:1rem;display:inline-block;">Live Demo →</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div style="height:220px;background:linear-gradient(135deg,#4338ca,#1e2937);display:flex;align-items:center;justify-content:center;font-size:4rem;">🔢</div>
+                    <div style="padding:1.8rem;">
+                        <h3>Scientific Calculator</h3>
+                        <p>Full-featured scientific calculator with all standard operations.</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div style="height:220px;background:linear-gradient(135deg,#166534,#052e16);display:flex;align-items:center;justify-content:center;font-size:4rem;">🐍</div>
+                    <div style="padding:1.8rem;">
+                        <h3>Python Utility Suite</h3>
+                        <p>Number guessing game, file handlers, and other small Python projects.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" style="background:#0a0e1f;">
+        <div class="container">
+            <div class="section-header"><h2>Experience</h2></div>
+            <div class="timeline">
+                <div style="padding-left:70px;position:relative;margin-bottom:3rem;">
+                    <div style="position:absolute;left:20px;width:20px;height:20px;background:var(--accent);border-radius:50%;"></div>
+                    <h3>Virtual Intern</h3>
+                    <p style="color:var(--accent);">InAmigos Foundation • 2025</p>
+                    <ul style="margin-top:1rem;padding-left:1.2rem;color:var(--text-muted);">
+                        <li>Onboarding & Guidelines</li>
+                        <li>Website Analysis Report (Security, UX, Privacy & Design)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education">
+        <div class="container">
+            <div class="section-header"><h2>Education</h2></div>
+            <div style="background:var(--surface);padding:3rem;border-radius:24px;max-width:700px;margin:0 auto;text-align:center;">
+                <h3>Diploma in Computer Science Engineering</h3>
+                <p style="color:var(--accent);">Government Polytechnic Gaya, Bihar (SBTE Bihar)</p>
+                <p>2025 — Present • 2nd Year, 3rd Semester</p>
+                <p style="margin-top:1rem;">SGPA: <strong>7.73</strong> (Semester 1)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" style="background:#0a0e1f;">
+        <div class="container">
+            <div class="section-header"><h2>Get In Touch</h2></div>
+            <div class="contact-form">
+                <form id="contactForm">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea rows="6" placeholder="Your Message" required></textarea>
+                    <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background:#03050a;padding:3rem 0;text-align:center;border-top:1px solid rgba(0,245,255,0.1);">
+        <p>Made with ❤️ by Rahul Kumar</p>
+        <p style="margin-top:0.5rem;color:var(--text-muted);">© 2026 • Gaya, Bihar, India</p>
+    </footer>
+
+    <script>
+        // MATRIX RAIN
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        const chars = "01アイウエオ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const fontSize = 13;
+        let columns = canvas.width / fontSize;
+        let drops = Array(Math.floor(columns)).fill(1);
+
+        function draw() {
+            ctx.fillStyle = 'rgba(5, 7, 15, 0.12)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#00f5ff';
+            ctx.font = `${fontSize}px monospace`;
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 40);
+
+        // Form
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert("✅ Message sent successfully! I'll reply soon.");
+            this.reset();
+        });
+
+        function downloadResume() {
+            alert("📄 Resume download started!\n(Rahul Kumar - Resume.pdf)");
+        }
+
+        console.log("%c🚀 Rahul Kumar Portfolio Loaded with Matrix Rain", "color:#00f5ff;font-size:16px");
+    </script>
+</body>
+</html>
